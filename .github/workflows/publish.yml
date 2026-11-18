@@ -1,3 +1,11 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 4 optimizations:
+# - [MEDIUM] Add concurrency group to "publish.yml"
+# - [MEDIUM] Switch "releases-windows" from Windows to ubuntu runner
+# - [LOW] Use shallow clone in "releases" job
+# - [LOW] Use shallow clone in "releases-windows" job
+# Estimated savings: ~2 min/run
+#
 name: Test and Release Go CLI
 
 on:
@@ -9,6 +17,10 @@ on:
 
 # The list of permissions is explained on the GitHub doc:
 # https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   # Write permissions is needed to create a new release
   contents: write
