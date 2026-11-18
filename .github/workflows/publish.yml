@@ -1,6 +1,7 @@
 name: Test and Release Go CLI
 
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches: [main, master, prod]
